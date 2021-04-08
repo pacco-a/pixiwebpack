@@ -47,6 +47,7 @@ export default class Game {
 
 	protected update(dt: number): void {
 		// render the stage
+
 		this.renderer.render(this.stage);
 	}
 

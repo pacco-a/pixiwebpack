@@ -33,6 +33,10 @@ export default class Inputo {
 			(e) => this.keyUpHandler(e),
 			false
 		);
+
+		pageDocument.addEventListener("mousedown", (e) => {
+			console.log(e.x);
+		});
 	}
 
 	keyDownHandler(event: KeyboardEvent) {
