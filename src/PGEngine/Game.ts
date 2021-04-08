@@ -2,43 +2,61 @@ import * as PIXI from "pixi.js";
 
 export default class Game {
 	// pixi renderer
-	private _pixiRenderer: PIXI.Renderer;
+	protected renderer: PIXI.Renderer;
+	protected stage: PIXI.Container;
+	protected graphics: PIXI.Graphics;
+	// pixi ticker
+	protected ticker: PIXI.Ticker;
 
 	constructor(config: IGameConfig) {
-		// create the pixi app (renderer)
-
-		const gameCanvas = document.getElementById(
-			"game-canvas"
-		) as HTMLCanvasElement;
-
-		this._pixiRenderer = new PIXI.Renderer({
-			view: gameCanvas,
+		// create renderer
+		this.renderer = new PIXI.Renderer({
 			width: config.width,
 			height: config.height,
 			backgroundColor: config.backgroundColor,
 		});
 
-		// document.body.appendChild(this._pixiRenderer.view);
+		document.body.appendChild(this.renderer.view);
 
-		const stage = new PIXI.Container();
+		// graphics (drawings)
 
-		// fonction renderer
+		this.graphics = new PIXI.Graphics();
+
+		// stage
+
+		this.stage = new PIXI.Container();
+		this.stage.addChild(this.graphics);
+
+		// execute create function
 
 		this.create();
 
-		// renderer loop
+		// ticker
 
-		const ticker = new PIXI.Ticker();
-		ticker.add(() => {
-			const dTime = ticker.elapsedMS / 1000;
-			this.update(dTime);
+		this.ticker = new PIXI.Ticker();
+		this.ticker.add(() => {
+			// update
+			this.update(this.ticker.elapsedMS / 1000);
+			// draw
+			this.draw();
 		});
 	}
 
-	// TODO fonction create qui s'execute une fois avant update
+	// fonction create qui s'execute une fois avant update
 	protected create(): void {}
 
-	protected update(dt: number): void {}
+	protected update(dt: number): void {
+		// render the stage
+		this.renderer.render(this.stage);
+	}
+
+	protected draw() {
+		this.graphics.clear();
+	}
+
+	public start() {
+		this.ticker.start();
+	}
 }
 
 interface IGameConfig {
