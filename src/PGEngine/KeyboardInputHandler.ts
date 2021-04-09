@@ -8,7 +8,7 @@ interface Key {
 
 // TODO changer tout ça pour créer une vraie classe KeyboardInputHandler mdr
 
-export default class Inputo {
+export default class KeyboardInputHandler {
 	private rightKey: Key = { down: false, justDown: false, framesDown: 0 };
 	private leftKey: Key = { down: false, justDown: false, framesDown: 0 };
 	private upKey: Key = { down: false, justDown: false, framesDown: 0 };

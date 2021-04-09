@@ -11,12 +11,13 @@ export default class Game {
 	constructor(config: IGameConfig) {
 		// create renderer
 		this.renderer = new PIXI.Renderer({
+			view: config.view,
 			width: config.width,
 			height: config.height,
 			backgroundColor: config.backgroundColor,
 		});
 
-		document.body.appendChild(this.renderer.view);
+		// document.body.appendChild(this.renderer.view);
 
 		// graphics (drawings)
 
@@ -65,4 +66,5 @@ interface IGameConfig {
 	height: number;
 	backgroundColor: number;
 	fps: number;
+	view: HTMLCanvasElement;
 }

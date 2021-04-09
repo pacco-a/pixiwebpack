@@ -22,10 +22,23 @@ export default class Player {
 
 	// player apparence
 	private playerSize: Vector2 = new Vector2(64, 64);
+	// 		test sprite
+	public playerSprite: PIXI.Sprite;
 
 	constructor(x: number, y: number) {
 		this.position.x = x;
 		this.position.y = y;
+
+		this.playerSprite = PIXI.Sprite.from("imgs/skinPapaRusse.png");
+		this.playerSprite.scale.set(2, 2);
+		this.playerSprite.anchor.set(0.5, 0.5);
+		this.playerSprite.position.set(
+			this.position.x + this.playerSize.x / 2,
+			this.position.y + this.playerSize.y / 2
+		);
+		this.playerSprite.tint = 0xff0000;
+		this.playerSprite.texture.baseTexture.scaleMode =
+			PIXI.SCALE_MODES.NEAREST;
 	}
 
 	public update(dt: number) {
@@ -78,6 +91,11 @@ export default class Player {
 				this.movement.speed * dt * this.movement.direction.x;
 			this.position.y +=
 				this.movement.speed * dt * this.movement.direction.y;
+
+			this.playerSprite.position.set(
+				this.position.x + this.playerSize.x / 2,
+				this.position.y + this.playerSize.y / 2
+			);
 		}
 
 		this.handleInput(false);
@@ -85,14 +103,14 @@ export default class Player {
 
 	public draw(graphics: PIXI.Graphics) {
 		// draw the player
-		graphics.beginFill(0x9e0916);
-		graphics.drawRect(
-			this.position.x,
-			this.position.y,
-			this.playerSize.x,
-			this.playerSize.y
-		);
-		graphics.endFill();
+		// graphics.beginFill(0x9e0916);
+		// graphics.drawRect(
+		// 	this.position.x,
+		// 	this.position.y,
+		// 	this.playerSize.x,
+		// 	this.playerSize.y
+		// );
+		// graphics.endFill();
 	}
 
 	/**
